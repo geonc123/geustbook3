@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="geustbook">
+	
+	<select id="selectList" resultType="com.javaex.vo.GeustBookVo" >
+	<![CDATA[
+		select 	no,
+		   	   	id,
+		   	   	password,
+		   		notice_board as noticeBoard,
+		   		nowdate
+	 	from gestbook
+	 	order by no desc
+	]]>
+	</select>
+	
+	<insert id="insert" parameterType="map">
+	<![CDATA[
+		insert into gestbook    ( no,
+								  id,	
+								  password,
+								  notice_board,  
+								  nowdate 
+								  ) values (seq_gestbook_no.nextval,  
+								  			#{id},  
+								  			#{password},  
+								   			#{noticeBoard}, 
+ 											to_char(sysdate, 'yyyy-mm-dd hh24:mi;ss'))
+        
+	]]>
+	
+	</insert>
+	
+	
+	<delete id="delete" parameterType="com.javaex.vo.GeustBookVo">
+	<![CDATA[
+	delete from gestbook where no = #{no} and password = #{password}
+	
+	]]>
+	
+	</delete>
+	
+	<select id="getbyno" parameterType="int" resultType="com.javaex.vo.GeustBookVo">
+	<![CDATA[
+		select 	no,
+		   	   	id,
+		   	   	password,
+		   		notice_board,
+		   		nowdate
+	 	from gestbook
+	 	where no = #{no}
+	]]>
+	</select>
+	
+</mapper>
